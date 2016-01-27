@@ -8,7 +8,7 @@ object CalcPoints {
   val inviters = new ListBuffer[String]
 
 	def main(args: Array[String]): Unit = {
-		val g = Graph((-1)~>(-1), -1)
+		val g = Graph[Int, DiEdge]
     
 		for(line <- Source.fromFile(args(0)).getLines()) {
   			val nodes = line.split(" ")
