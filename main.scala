@@ -6,9 +6,10 @@ import scala.collection.mutable.ListBuffer
 
 object CalcPoints {
   val inviters = new ListBuffer[String]
+  val g = Graph((-1)~>(-1), -1)
 
 	def main(args: Array[String]): Unit = {
-		val g = Graph[Int, DiEdge]
+		
     
 		for(line <- Source.fromFile(args(0)).getLines()) {
   			val nodes = line.split(" ")
@@ -27,18 +28,19 @@ object CalcPoints {
       val allPeople = (g.nodes mkString " ").split(" ")
 
       for (person <- allPeople) {
-        val points = calcNodeValue(g, person, 0)
+        val points = calcNodeValue(person, 0)
         println(person + " " + points)
       }
 	}
 
-  def calcNodeValue(g: Graph[Int, DiEdge], person: String, weight: Int): Double = {
+  def calcNodeValue(person: String, weight: Int): Double = {
     var sum = 0.0
     val node = g get person.toInt
     val childs = node.diSuccessors
+    
     for (child <- childs) {
       if (inviters contains child.toString) {
-        sum += (scala.math.pow( (0.5), weight) + calcNodeValue(g, child.toString, weight + 1))
+        sum += (scala.math.pow( (0.5), weight) + calcNodeValue(child.toString, weight + 1))
       }
     }
     return sum
