@@ -20,7 +20,7 @@ object CalcPoints {
     getPoints()
     for (newEdge <- io.Source.stdin.getLines) {
       if (newEdge.isEmpty)
-        sys.exit()
+        return
 
       registerEdge(newEdge)
       getPoints()
